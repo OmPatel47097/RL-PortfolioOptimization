@@ -34,19 +34,44 @@ for episode in range(num_episodes):
         if done:
             break
             # Log the actions and rewards
-        print(f"Step {t}: Action {action}, Reward {reward}, Portfolio Value {env._calculate_reward()}, Cash {env.cash}")
+        print(f"Step {t}: Action {action}, Episode Return {episode_return}, Portfolio Value {env._calculate_reward()}, Cash {env.cash}")
     returns.append(episode_return)
     cumulative_return = sum(returns) / (episode + 1)
     cumulative_returns.append(cumulative_return)
     steps.append(t)
-    print(f"Episode {episode+1}/{num_episodes}, Return: {episode_return}")
+    print(f"Episode {episode+1}/{num_episodes}, Last Episode Return: {episode_return}")
+
+"""
+Other Option:   
+Actions are taken in the environment by calling agent.select_action(state), 
+which uses the policy network (actor) to select an action.
+
+for episode in range(num_episodes):
+    state = env.reset()
+    episode_return = 0
+    for t in range(max_steps):
+        action, log_prob = agent.select_action(state)
+        next_state, reward, done, _ = env.step(action)
+        agent.store_transition(state, action, log_prob, reward, next_state, done)
+        state = next_state
+        episode_return += reward
+        if done:
+            break
+    agent.update()
+    returns.append(episode_return)
+    cumulative_return = sum(returns) / (episode + 1)
+    cumulative_returns.append(cumulative_return)
+    steps.append(t)
+    print(f"Episode {episode+1}, Return: {episode_return}")
+    
+"""
 
 # Plotting metrics
 plt.figure(figsize=(10, 5))
 plt.plot(returns, label='Returns')
 plt.xlabel('Episode')
 plt.ylabel('Return')
-plt.title('Returns per Episode')
+plt.title('Returns per Episode - PPO')
 plt.legend()
 plt.savefig('../reports/returns_per_episode.png')
 plt.show()
@@ -55,7 +80,7 @@ plt.figure(figsize=(10, 5))
 plt.plot(cumulative_returns, label='Average Cumulative Return')
 plt.xlabel('Episode')
 plt.ylabel('Cumulative Return')
-plt.title('Average Cumulative Return per Episode')
+plt.title('Average Cumulative Return per Episode - PPO')
 plt.legend()
 plt.savefig('../reports/cumulative_return_per_episode.png')
 plt.show()
@@ -64,7 +89,7 @@ plt.figure(figsize=(10, 5))
 plt.plot(steps, label='Steps per Episode')
 plt.xlabel('Episode')
 plt.ylabel('Steps')
-plt.title('Steps per Episode')
+plt.title('Steps per Episode - PPO')
 plt.legend()
 plt.savefig('../reports/steps_per_episode.png')
 plt.show()

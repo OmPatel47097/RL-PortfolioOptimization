@@ -1,0 +1,6 @@
+gym
+numpy==1.23.3
+pandas==1.5.1
+yfinance==0.2.12
+matplotlib==3.5.3
+tensorflow==2.9.1

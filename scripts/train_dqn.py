@@ -3,16 +3,21 @@ import matplotlib.pyplot as plt
 from portfolio_env import PortfolioEnv
 from models.dqn import DQNAgent
 
+"""
+The agent selects an action based on the current state using either an epsilon-greedy policy or the Q-network's prediction.
+After executing the action, the environment returns the next state and the associated reward.
+"""
+
 # Load environment
 env = PortfolioEnv(data_file='../data/stockdata.csv')
 state_size = env.observation_space.shape[0]
 action_size = env.action_space.n
 
 # Initialize agent
-agent = DQNAgent(state_size=state_size, action_size=action_size)
+agent = DQNAgent(state_size=state_size, action_size=action_size, log_dir='../logs')
 
-num_episodes = 1000
-max_steps = 1000
+num_episodes = 10
+max_steps = 10
 batch_size = 32
 
 # Metrics
