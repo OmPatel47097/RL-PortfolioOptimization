@@ -16,9 +16,9 @@ class ActorCritic:
     def __init__(self, state_size, action_size):
         self.state_size = state_size
         self.action_size = action_size      # 3 * len(self.data.columns) - Buy, Sell, Hold for each ticker
-        self.gamma = 0.90  # discount factor
-        # TODO: Explore learing rate as lower values help model to explore more and higher make model stuck.
-        self.learning_rate = 0.00001
+        self.gamma = 0.95  # discount factor
+        # TODO: Explore learning rate as lower values help model to explore more and higher make model stuck.
+        self.learning_rate = 0.1
         # self.epsilon = 1.0  # Initial exploration rate
         # self.epsilon_min = 0.01
         # self.epsilon_decay = 0.995
