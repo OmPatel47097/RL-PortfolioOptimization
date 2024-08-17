@@ -48,8 +48,8 @@ class PortfolioEnv(gym.Env):
         self._execute_action(action, prices)
         self.current_step += 1
         done = self.current_step >= len(self.data) - 1
-        # reward = self.portfolio_value - self.initial_cash
-        reward = self.portfolio_value - self.current_value
+        reward = self.portfolio_value - self.initial_cash
+        # reward = self.portfolio_value - self.current_value
         self.current_value = self.portfolio_value
         state = self._get_state()
         print(f"Step State Shape: {state.shape}")
