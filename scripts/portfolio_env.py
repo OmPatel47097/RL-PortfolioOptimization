@@ -57,7 +57,9 @@ class PortfolioEnv(gym.Env):
 
     def _execute_action(self, action, prices):  # Buy, Sell, Hold
         for i, ticker in enumerate(self.data.columns):
-            if action == 0:  # Hold
+            if self.initial_cash == 0:
+                return print("Initial Cash or Current Value is zero!!")
+            elif action == 0:  # Hold
                 continue
             elif action == 1:  # Buy
                 # quantity = self.cash // prices[i]   # Buy as many shares as possible
@@ -100,60 +102,3 @@ class PortfolioEnv(gym.Env):
 
     def render(self, mode='human'):
         print(f'Step: {self.current_step}, Portfolio Value: {self.portfolio_value:.2f}, Cash: {self.cash:.2f}')
-
-# ------------------------------------------------------------
-
-# import gym
-# from gym import spaces
-# import numpy as np
-# import pandas as pd
-#
-# INITIAL_CASH = 10000
-#
-# class PortfolioEnv(gym.Env):
-#     def __init__(self, data_file, invest_cash=INITIAL_CASH):
-#         super(PortfolioEnv, self).__init__()
-#         self.data = pd.read_csv(data_file, index_col=0, header=[0, 1])
-#         self.data = self.data['Adj Close']  # Select only the 'Adj Close' column
-#         self.initial_cash = invest_cash
-#         self.reset()
-#         self.action_space = spaces.Discrete(3)  # Buy, Sell, Hold for each ticker
-#         self.observation_space = spaces.Box(low=0, high=np.inf, shape=(len(self.data.columns) + 1,), dtype=np.float32)
-#
-#     def reset(self):  # Reset the state of the environment to an initial state
-#         self.current_step = 0
-#         self.cash = self.initial_cash
-#         self.portfolio_value = self.cash
-#         self.holdings = {ticker: 0 for ticker in self.data.columns}
-#         self.current_value = self.initial_cash
-#         return self._get_state()
-#
-#     def _get_state(self):
-#         prices = self.data.iloc[self.current_step].values
-#         return np.append(prices, self.cash)
-#
-#     def step(self, action):
-#         prices = self.data.iloc[self.current_step].values
-#         self._execute_action(action, prices)
-#         self.current_step += 1
-#         done = self.current_step >= len(self.data) - 1
-#         reward = self.portfolio_value - self.current_value
-#         self.current_value = self.portfolio_value
-#         state = self._get_state()
-#         return state, reward, done, {}
-#
-#     def _execute_action(self, action, prices):  # Buy, Sell, Hold
-#         for i, ticker in enumerate(self.data.columns):
-#             if action == 0:  # Hold
-#                 continue
-#             elif action == 1:  # Buy
-#                 quantity = self.cash // prices[i]  # Buy as many shares as possible
-#                 self.cash -= quantity * prices[i]  # Reduce cash by the value of the shares
-#                 self.holdings[ticker] += quantity  # Increase the number of shares held
-#             elif action == 2:  # Sell
-#                 self.cash += self.holdings[ticker] * prices[i] / 2  # Sell half of the shares
-#                 self.holdings[ticker] /= 2  # Update holdings to reflect the sale
-#         self.portfolio_value = self.cash + sum(self.holdings[ticker] * prices[i] for i, ticker in enumerate(self.data.columns))
-#
-#     def render(self, mode='human'):
-#         print(f'Step: {self.current_step}, Portfolio Value: {self.portfolio_value:.2f}, Cash: {self.cash:.2f}')
