@@ -1,7 +1,3 @@
-Here's a detailed `README.md` file that you can use for your GitHub project:
-
----
-
 # **Automated Portfolio Management Using Reinforcement Learning**
 
 ## **Project Overview**
