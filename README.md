@@ -46,8 +46,8 @@ pip install -r requirements.txt
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/automated-portfolio-management.git
-   cd automated-portfolio-management
+   git clone [https://github.com/OmPatel47097/RL-PortfolioOptimization.git](https://github.com/OmPatel47097/RL-PortfolioOptimization.git)
+   cd RL-PortfolioOptimization
    ```
 
 2. **Download Stock Data:**
@@ -81,7 +81,7 @@ pip install -r requirements.txt
 To monitor training progress and view metrics like episode returns and cumulative returns:
 
 ```bash
-tensorboard --logdir=logs/
+tensorboard --logdir ./logs/
 ```
 
 Then open `http://localhost:6006/` in your web browser.
@@ -92,7 +92,7 @@ After training, the performance of both algorithms can be evaluated using the ge
 
 - **Returns per Episode**
 - **Cumulative Return per Episode**
-- **Steps per Episode**
+- **Return per Episode**
 
 The results demonstrate the effectiveness of DQN and PPO in managing a portfolio, with detailed analysis provided in the project's final report.
 
@@ -113,7 +113,7 @@ Future improvements could include:
 
 ## **Contributors**
 
-- **Your Name:** Project Lead, responsible for algorithm implementation and project management.
+- **Om Patel, Ujas Patel, Balbhadra Prajapati**
 
 ## **License**
 
